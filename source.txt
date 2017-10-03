@@ -1,0 +1,72 @@
+
+
+package Fibonacci
+
+import scala.math.BigInt.int2bigInt
+import  scala.annotation.tailrec
+
+object fibo {
+  
+  //method use to find the fibo series with for loop
+  def fibonacci_by_forloop(n : Int,nth:Int) :Unit = {
+    var result = ""
+    
+    if(n<2){
+      println(n)
+    }
+    
+    else{
+      var temp :BigInt = 0
+      var no1:BigInt = 0
+      var no2:BigInt =1
+      for(i <- 1 until n){
+        temp = no1+no2
+        no1 = no2
+        no2 = temp
+        result= result + temp
+      }
+      
+      println(s"The Fibonacci series by For Loop : "+ result)
+      println(s"\nThe digit at place $nth of the above Fibonacci series : "+result.charAt(nth-1).toChar)
+    }
+    
+    
+  }
+  
+  //method used to print fibo series with the recursion
+  def fibonacci_by_recursion(x:Int,nth:Int):Unit = {
+    var result = ""
+    
+    def recursion(x:Int ,prev :BigInt=0,next :BigInt = 1):Unit= x match {
+      case 0 => prev
+      case 1 => next
+      case _ =>
+        result = result + (next+prev)
+        recursion(x - 1 ,next,next+prev) //recursive call 
+      
+       
+    }
+    recursion(x) //first call
+    
+    println(s"The Fibonacci series by Recursion: "+ result)
+    println(s"\nThe digit at place $nth of the above Fibonacci series : "+result.charAt(nth-1).toChar)
+  }
+  
+  
+  //main method entry point of the controller
+  def main(args:Array[String]):Unit = {
+    
+    
+    println("\nEnter the no of digits for the Fibonacci Series:")
+    var digits:Int = scala.io.StdIn.readLine().toInt
+    
+    println("\nEnter the Nth digit to be found in the fibonacci series:")
+    var nth:Int = scala.io.StdIn.readLine().toInt
+    
+    fibonacci_by_forloop(digits,nth) //for loop method called
+    fibonacci_by_recursion(digits,nth) //recursive method called
+    
+  }
+  
+  
+}
